@@ -1,2 +1,4 @@
-package org.egov.notification.util;public class MDMSUtils {
+package org.egov.notification.util;
+
+public class MDMSUtils {
 }

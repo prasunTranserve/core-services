@@ -1,2 +1,4 @@
-package org.egov.notification.util;public class NotificationUtil {
+package org.egov.notification.util;
+
+public class NotificationUtil {
 }

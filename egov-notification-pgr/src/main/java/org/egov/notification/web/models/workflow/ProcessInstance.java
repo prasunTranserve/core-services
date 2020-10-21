@@ -1,2 +1,4 @@
-package org.egov.notification.web.models.workflow;public class ProcessInstance {
+package org.egov.notification.web.models.workflow;
+
+public class ProcessInstance {
 }
