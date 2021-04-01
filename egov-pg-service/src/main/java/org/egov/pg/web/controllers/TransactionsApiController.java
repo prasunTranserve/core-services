@@ -36,6 +36,22 @@ public class TransactionsApiController {
         this.transactionService = transactionService;
         this.gatewayService = gatewayService;
     }
+    
+    /**
+     * Initiates a new payment transaction, on successful validation, a redirect is issued to the payment gateway.
+     *
+     * @param transactionRequest Request containing all information necessary for initiating payment
+     * @return Transaction that has been created
+     */
+    @RequestMapping(value = "/transaction/v1/_create", method = RequestMethod.POST)
+    public ResponseEntity<TransactionCreateResponse> transactionsV1CreatePost(@Valid @RequestBody TransactionRequest transactionRequest) {
+
+        Transaction transaction = transactionService.initiateTransaction(transactionRequest);
+        ResponseInfo responseInfo = ResponseInfoFactory.createResponseInfoFromRequestInfo(transactionRequest
+                .getRequestInfo(), true);
+        TransactionCreateResponse response = new TransactionCreateResponse(responseInfo, transaction);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }    
 
 
     /**
