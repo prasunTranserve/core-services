@@ -58,9 +58,13 @@ public class OtpSMSRepository {
         Map<String, String> localisedMsgs = localizationService.getLocalisedMessages(otpRequest.getTenantId(), "en_IN", "egov-user");
         if (localisedMsgs.isEmpty()) {
             log.info("Localization Service didn't return any msgs so using default...");
-            localisedMsgs.put(LOCALIZATION_KEY_REGISTER_SMS, "Dear Citizen, Your OTP to complete your Sujog Registration is %s.");
-            localisedMsgs.put(LOCALIZATION_KEY_LOGIN_SMS, "Dear Citizen, Your Login OTP is %s.");
-            localisedMsgs.put(LOCALIZATION_KEY_PWD_RESET_SMS, "Dear Citizen, Your OTP for recovering password is %s.");
+            // localisedMsgs.put(LOCALIZATION_KEY_REGISTER_SMS, "Dear Citizen, Your OTP to complete your Sujog Registration is %s.");
+            // localisedMsgs.put(LOCALIZATION_KEY_LOGIN_SMS, "Dear Citizen, Your Login OTP is %s.");
+            // localisedMsgs.put(LOCALIZATION_KEY_PWD_RESET_SMS, "Dear Citizen, Your OTP for recovering password is %s.");
+
+            localisedMsgs.put(LOCALIZATION_KEY_REGISTER_SMS, "Dear Citizen Welcome to Sujog. Your OTP to complete your User Registration is %s. - Government of OdishaID#1007360687291976368");
+            localisedMsgs.put(LOCALIZATION_KEY_LOGIN_SMS, "Your OTP for login is %s- Govt. of OdishaID#1007198491518909347");
+            localisedMsgs.put(LOCALIZATION_KEY_PWD_RESET_SMS, "Dear Citizen Your OTP for recovering password is %s. Govt. of OdishaID#1007755823576614137");
         }
         String message = null;
 

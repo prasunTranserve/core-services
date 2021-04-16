@@ -95,10 +95,27 @@ abstract public class BaseSMSService implements SMSService, SMSBodyBuilder {
 		String senderID = smsProperties.getSenderid();
 		String secureKey = smsProperties.getSecureKey();
 		String url = smsProperties.getUrl();
-		String message = sms.getMessage();
+		String delimeter = smsProperties.getDelimeter();
+		String templateId = "1111111111111111"; // Default value
+		String message = "";
+		String messageWithTemplateId = sms.getMessage();
 		String mobileNumber = sms.getMobileNumber();
+		
+		String[] strings = messageWithTemplateId.split(delimeter);
+		if (strings != null) {
+			if (strings.length == 1) {
+				message = strings[0];
+				log.info(String.format("Unable to send SMS with message '%s' to mobile number %s as the template id is not present.", message, mobileNumber));
+			}
+			if (strings.length == 2) {
+				message = strings[0];
+				templateId = strings[1];
+				log.info(String.format("SMS sent with message- '%s' to mobile number %s with template id %s", message, mobileNumber, templateId));
 
-		smsServices.sendSingleSMS(userName, password, message, senderID, mobileNumber, secureKey);
+			}
+		}
+		
+		smsServices.sendSingleSMS(userName, password, message, senderID, mobileNumber, secureKey, templateId);
 
 		// submitToExternalSmsService(sms);
 	}

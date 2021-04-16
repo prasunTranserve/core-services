@@ -71,6 +71,10 @@ public class SMSProperties {
 
     @Setter(AccessLevel.PROTECTED) private List<Pattern> whitelistPatterns;
     @Setter(AccessLevel.PROTECTED) private List<Pattern> blacklistPatterns;
+    
+    @Value("${sms.provider.delimeter}")
+    public String delimeter;
+
 
     private List<Pattern> convertToPattern(List<String> data) {
         List<Pattern> patterns = new ArrayList<>(data.size());
