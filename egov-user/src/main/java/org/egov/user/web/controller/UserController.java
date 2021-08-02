@@ -103,6 +103,17 @@ public class UserController {
         final User newUser = userService.createUser(user, createUserRequest.getRequestInfo());
         return createResponse(newUser);
     }
+    
+    @PostMapping("/users/_createmigrateuser")
+    public UserDetailResponse createUserForMigration(@RequestBody @Valid CreateUserRequest createUserRequest,
+                                                          @RequestHeader HttpHeaders headers) {
+
+        User user = createUserRequest.toDomain(true);
+        user.setMobileValidationMandatory(false);
+        user.setOtpValidationMandatory(false);
+        final User newUser = userService.createMigrateUser(user, createUserRequest.getRequestInfo());
+        return createResponse(newUser);
+    }
 
     /**
      * end-point to search the users by providing userSearchRequest. In Request
