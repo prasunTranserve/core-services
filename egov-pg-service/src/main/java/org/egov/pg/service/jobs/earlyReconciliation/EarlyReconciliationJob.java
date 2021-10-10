@@ -12,6 +12,7 @@ import org.egov.pg.web.models.TransactionCriteria;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Slf4j
-public class EarlyReconciliationJob implements Job {
+public class EarlyReconciliationJob implements Job,InitializingBean  {
 
     private static final RequestInfo requestInfo;
 
@@ -43,6 +44,20 @@ public class EarlyReconciliationJob implements Job {
     private TransactionService transactionService;
     @Autowired
     private TransactionRepository transactionRepository;
+    
+	/**
+	 * 
+	*/
+    @Override
+	public void afterPropertiesSet() throws Exception {
+		
+    	User userInfo = User.builder()
+                .uuid(appProperties.getReconciliationUserUuid())
+                .type(appProperties.getReconciliationUserType())
+                .roles(Collections.emptyList()).id(0L).build();
+
+        requestInfo.setUserInfo(userInfo);
+	}
 
     /**
      * Fetch live status for pending transactions
@@ -72,5 +87,6 @@ public class EarlyReconciliationJob implements Job {
         }
 
     }
+
 
 }
